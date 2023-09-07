@@ -18,24 +18,24 @@
       <th>Matéria</th>
     </tr>
     <?php
-      $arquivoAluno = fopen("Alunos.txt", "r") or die("Erro ao ler arquivo");
-      $x = 0;
-      $linhas[] = fgets($arquivoAluno);
+      $arquivoAluno = fopen("Alunos.txt", "r");
 
-      while (!feof($arquivoAluno)) {
-        $linhas[] = fgets($arquivoAluno);
-        $colunaDados = explode("-", $linhas[$x]);
-        $nome = $colunaDados[0];
-        $matricula = $colunaDados[1];
-        $materia = $colunaDados[2];
+      if ($arquivoAluno) {
+      while (($linha = fgets($arquivoAluno)) !== false) {
+        $dados = explode("-", $linha);
+        $nome = $dados[0];
+        $matricula = $dados[1];
+        $materia = $dados[2];
         echo "<tr>";
         echo "<td>" . $nome . "</td>";
         echo "<td>" . $matricula . "</td>";
         echo "<td>" . $materia . "</td>";
         echo "</tr>";
-        $x++;
       }
       fclose($arquivoAluno);
+      } else {
+        echo "Erro ao abrir o arquivo!";
+      }
     ?>
   </table>
 </body>
